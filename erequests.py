@@ -11,7 +11,7 @@ by eventlet.
 import eventlet
 
 # Monkey-patch.
-requests = eventlet.patcher.import_patched('requests')
+requests = eventlet.patcher.import_patched('requests.__init__')
 
 __all__ = ['map', 'imap', 'get', 'options', 'head', 'post', 'put', 'patch', 'delete', 'request', 'async', 'AsyncRequest']
 
