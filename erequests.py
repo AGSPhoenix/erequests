@@ -8,12 +8,14 @@ This module contains an asynchronous replica of ``requests.api``, powered
 by eventlet.
 """
 
+__version__ = '0.4.1'
+
 import eventlet
 
 # Monkey-patch.
 requests = eventlet.patcher.import_patched('requests.__init__')
 
-__all__ = ['map', 'imap', 'get', 'options', 'head', 'post', 'put', 'patch', 'delete', 'request', 'async', 'AsyncRequest']
+__all__ = ['__version__', 'map', 'imap', 'get', 'options', 'head', 'post', 'put', 'patch', 'delete', 'request', 'async', 'AsyncRequest']
 
 # Export same items as vanilla requests
 __requests_imports__ = ['utils', 'session', 'Session', 'codes', 'RequestException', 'Timeout', 'URLRequired', 'TooManyRedirects', 'HTTPError', 'ConnectionError']
