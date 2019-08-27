@@ -15,7 +15,7 @@ import eventlet
 # Monkey-patch.
 requests = eventlet.patcher.import_patched('requests.__init__')
 
-__all__ = ['__version__', 'map', 'imap', 'get', 'options', 'head', 'post', 'put', 'patch', 'delete', 'request', 'async', 'AsyncRequest']
+__all__ = ['__version__', 'map', 'imap', 'get', 'options', 'head', 'post', 'put', 'patch', 'delete', 'request', 'AsyncRequest']
 
 # Export same items as vanilla requests
 __requests_imports__ = ['utils', 'session', 'Session', 'codes', 'RequestException', 'Timeout', 'URLRequired', 'TooManyRedirects', 'HTTPError', 'ConnectionError']
@@ -97,10 +97,6 @@ class AsyncRequestFactory(object):
         return cls.request('DELETE', url, **kwargs)
 
 
-# alias for the factory
-async = AsyncRequestFactory
-
-
 def request(method, url, **kwargs):
     req = AsyncRequest(method, url)
     return eventlet.spawn(req.send, **kwargs).wait()
@@ -135,6 +131,23 @@ def patch(url, data=None, **kwargs):
 
 def delete(url, **kwargs):
     return request('DELETE', url, **kwargs)
+
+
+def request_async(*args, **kwargs): return AsyncRequestFactory.request(*args, **kwargs)
+
+def get_async(*args, **kwargs): return AsyncRequestFactory.get(*args, **kwargs)
+
+def options_async(*args, **kwargs): return AsyncRequestFactory.options(*args, **kwargs)
+
+def head_async(*args, **kwargs): return AsyncRequestFactory.head(*args, **kwargs)
+
+def post_async(*args, **kwargs): return AsyncRequestFactory.post(*args, **kwargs)
+
+def put_async(*args, **kwargs): return AsyncRequestFactory.put(*args, **kwargs)
+
+def patch_async(*args, **kwargs): return AsyncRequestFactory.patch(*args, **kwargs)
+
+def delete_async(*args, **kwargs): return AsyncRequestFactory.delete(*args, **kwargs)
 
 
 def map(requests, size=10):
